@@ -10,16 +10,22 @@ describe('Function and closure', () => {
       return x * 3;
     }
 
-    function compose(){
-        //TODO: implement
+    function compose(func1, func2){
+      return function(value) {
+        return func1(func2(value));
+      };
     }
-
-    expect( compose(  add5, mul3)(2) ).toBe(add5(mul3(2)));
+    var composition = compose(add5, mul3);
+    var cc2 = composition(2);
+    console.log(cc2);
+    expect( compose(add5, mul3)(2)).toBe(add5(mul3(2)));
   });
 
-  test('Should create new user with unique number identifier using increment', () => {
-    function createUser(){
-       //TODO: implement
+  test.only('Should create new user with unique number identifier using increment', () => {
+    var incrementor=0;
+    function createUser(name){
+      let num = ++incrementor;
+       return {name, id:num};
     }
     expect( createUser("Ivan") ).toStrictEqual({ name: 'Ivan', id: 1 });
     expect( createUser("Petr").name ).toBe('Petr');
@@ -27,8 +33,10 @@ describe('Function and closure', () => {
   });
 
   test('Should create function that each time return new value incremented by incrementValue and start from start', () => {
+    var incr;
     function createIncrementor(start, incrementValue) {
-      // TODO: implement
+      incr = start;
+      return  incr+=incrementValue;
     }
 
 
