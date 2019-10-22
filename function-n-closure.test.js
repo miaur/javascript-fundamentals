@@ -167,7 +167,7 @@ describe('Function and closure', () => {
         expect(mul20(3)).toBe(60);
     });
 
-    test.only('Calculate function invocation', () => {
+    test('Calculate function invocation', () => {
         function fn() {
             // DON'T CHANGE ME
             return 'test';
@@ -181,11 +181,11 @@ describe('Function and closure', () => {
             }
 
             function callFn() {
-                FnCount++;
+                FnCount = FnCount + 1;
                 return func();
             }
 
-            return [func, getFnCount]; // CHANGE TOO
+            return [callFn, getFnCount]; // CHANGE TOO
         }
 
         const [callFn, getFnCount] = calcCall(fn);
@@ -203,7 +203,7 @@ describe('Function and closure', () => {
         expect(getFn2Count()).toBe(2);
     });
 
-    test('Should cache the result of function with single argument', () => {
+    test.only('Should cache the result of function with single argument', () => {
         function memoize(fn) {
             // TODO: implement
         }
