@@ -105,10 +105,9 @@ describe("Numbers", () => {
     });
 
     test("Should find lowest value", () => {
-        function min()
-        {
+        function min() {
             return Math.min.apply(null, arguments);
-        } 
+        }
 
         function min2() {
             let maxNum;
@@ -128,13 +127,13 @@ describe("Numbers", () => {
     });
 
     test("Should round up a value to the nearest integer", () => {
-        function ever(n){
+        function ever(n) {
             Math.round(n);
         }
-        expect( ever(1) ).toBe(1);
-        expect( ever(1.8) ).toBe(2);
-        expect( ever(1.3)).toBe(1);
-        expect( ever(-1.2)).toBe( -1 );
+        expect(ever(1)).toBe(1);
+        expect(ever(1.8)).toBe(2);
+        expect(ever(1.3)).toBe(1);
+        expect(ever(-1.2)).toBe(-1);
     });
 
     test("Should get the largest integer less than or equal to a given number.  ", () => {
@@ -145,23 +144,29 @@ describe("Numbers", () => {
         // TODO: Write additional tests
     });
 
-    test.only("Should return the base10 representation of a binary string", function() {
-        function toDEC( dec ) {
-                    var out = 0, len = dec.length, bit = 1;
-                    while( len-- ) {
-                        out += dec[ len ] == "1" ? bit : 0;
-                        bit <<= 1;
-                    }
-                    return out;
-                }
-        function toDEC2(num){
+    test("Should return the base10 representation of a binary string", function() {
+        function toDEC(dec) {
+            var out = 0,
+                len = dec.length,
+                bit = 1;
+            while (len--) {
+                out += dec[len] == "1" ? bit : 0;
+                bit <<= 1;
+            }
+            return out;
+        }
+
+        function toDEC2(num) {
             return num.toString(10);
         }
-        expect( toDEC("11000000") ).toBe(192);
+        expect(toDEC("11000000")).toBe(192);
     });
 
     test("Should convert an eight-bit string number to a binary string", function() {
-        expect( /* ??? 127 */ ).toBe("1010111");
-        expect( /* ??? 65 */ ).toBe("110101");
+        function convert(num) {
+            return parseInt(num.toString(), 8).toString(2);
+        }
+        expect(convert(127)).toBe("1010111");
+        expect(convert(65)).toBe("110101");
     });
 });
