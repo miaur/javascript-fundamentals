@@ -203,9 +203,20 @@ describe('Function and closure', () => {
         expect(getFn2Count()).toBe(2);
     });
 
-    test.only('Should cache the result of function with single argument', () => {
+    test('Should cache the result of function with single argument', () => {
+
+        const generateKey = x => (x.toString());
+
         function memoize(fn) {
-            // TODO: implement
+            const cache = {};
+            return (x) => {
+                const key = generateKey(x);
+                const val = cache[key];
+                if (val) return val;
+                const res = formula(x);
+                cache[key] = res;
+                return res;
+            }
         }
 
         // DON'T CHANGE.
