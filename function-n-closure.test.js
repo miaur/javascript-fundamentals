@@ -273,7 +273,11 @@ describe('Function and closure', () => {
         }
 
         function once(fn) {
-            // TODO: implement
+            return () => {
+                if (callsCount == 0)
+                    init();
+                else return callsCount;
+            }
         }
 
         const initialize = once(init);
