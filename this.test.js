@@ -1,50 +1,57 @@
 describe('THIS', () => {
-  it('Should invoke function with specific this', () => {
-    // DON'T CHANGE
-    const a = { msg: 'aaa' };
-    const b = { msg: 'bbb' };
+    it('Should invoke function with specific this', () => {
+        // DON'T CHANGE
+        const a = { msg: 'aaa' };
+        const b = { msg: 'bbb' };
 
-    // DON'T CHANGE
-    function example() {
-      return this.msg + ' ' + this.msg;
-    }
+        // DON'T CHANGE
+        function example() {
+            return this.msg + ' ' + this.msg;
+        }
 
-    expect(/* ??? */).toBe('aaa aaa');
-    expect(/* ??? */).toBe('bbb bbb');
-  });
+        a.example = example;
+        b.example = example;
 
-  it('Should create function  connected with specific this', () => {
-    // DON'T CHANGE
-    function fn() {
-      return this.name;
-    }
-    // DON'T CHANGE
-    const tom = { name: 'Tom', age: 22 };
-    const bob = { name: 'Bob', get: 50 };
+        expect(a.example()).toBe('aaa aaa');
+        expect(b.example()).toBe('bbb bbb');
+        expect(example.call(a)).toBe('aaa aaa');
+        expect(example.call(b)).toBe('bbb bbb');
 
-    // TODO: fix
-    const getTomName = fn;
-    const getBobName = fn;
 
-    expect(getTomName()).toBe('Tom');
-    expect(getBobName()).toBe('Bob');
-  });
+    });
 
-  test('Function from object method. Fix me', () => {
-    // DON'T CHANGE
-    const person = {
-      firstName: 'Ivan',
-      secondName: 'Ivanov',
-      age: 20,
+    it('Should create function  connected with specific this', () => {
+        // DON'T CHANGE
+        function fn() {
+            return this.name;
+        }
+        // DON'T CHANGE
+        const tom = { name: 'Tom', age: 22 };
+        const bob = { name: 'Bob', get: 50 };
 
-      sayHello: function() {
-        return `Hi, ${this.firstName}!`;
-      }
-    };
+        // TODO: fix
+        const getTomName = () => { return fn.call(tom) };
+        const getBobName = () => { return fn.call(bob) };
 
-    // TODO: FIX ME
-    const sayHello = person.sayHello;
+        expect(getTomName()).toBe('Tom');
+        expect(getBobName()).toBe('Bob');
+    });
 
-    expect(sayHello()).toBe(person.sayHello());
-  });
+    test('Function from object method. Fix me', () => {
+        // DON'T CHANGE
+        const person = {
+            firstName: 'Ivan',
+            secondName: 'Ivanov',
+            age: 20,
+
+            sayHello: function() {
+                return `Hi, ${this.firstName}!`;
+            }
+        };
+
+        // TODO: FIX ME
+        const sayHello = person.sayHello;
+
+        expect(sayHello.apply(person)).toBe(person.sayHello());
+    });
 });
