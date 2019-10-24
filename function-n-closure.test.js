@@ -255,7 +255,12 @@ describe('Function and closure', () => {
         }
 
         function logMe(fn) {
-            // TODO: implement
+            return () => {
+                logger.logStart(fn.name);
+                let ex = fn();
+                logger.logEnd(fn.name);
+                return ex;
+            };            
         }
 
         const loggedExample = logMe(example);
@@ -286,7 +291,9 @@ describe('Function and closure', () => {
 
     test('Creates a function that invokes func with partials prepended to the arguments it receives. ', () => {
         function partial(fn, arg1) {
-            // TODO: implement
+            return x => {
+                return fn(x, arg1);
+            }
         }
 
         //DON'T CHANGE
